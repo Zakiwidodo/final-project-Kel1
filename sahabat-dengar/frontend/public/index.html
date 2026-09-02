@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sahabat Dengar - Pendamping kesehatan mental berbasis AI yang hangat, empatik, dan aman untuk bercerita.">
+  <meta name="keywords" content="mental health, chatbot, konseling ai, sahabat dengar, kesehatan mental, curhat ai">
+  <meta name="author" content="Anti Gravity">
+  <title>Sahabat Dengar — Pendamping Kesehatan Mental Berbasis Gen AI</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/src/index.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Crisis Hotline Top Banner -->
+    <header class="crisis-banner">
+      <span class="crisis-badge">Bantuan Darurat</span>
+      <span>Jika berada dalam krisis atau butuh pertolongan segera, hubungi <strong>Layanan Sejiwa: 119 ext 8 (24 Jam)</strong> atau IGD RS terdekat.</span>
+    </header>
+
+    <!-- Glassmorphic Navbar -->
+    <nav class="navbar glass-nav">
+      <a class="nav-brand" href="#landing" id="nav-brand-logo">
+        <div class="brand-icon">🧠</div>
+        <span>Sahabat Dengar</span>
+      </a>
+
+      <!-- Navbar Right Controls & Links -->
+      <div class="nav-links" id="nav-links-container">
+        <!-- Injected dynamically by app.js based on auth state -->
+      </div>
+    </nav>
+
+    <!-- Main View Container for SPA Pages -->
+    <main class="main-content" id="app">
+      <!-- Injected dynamically based on current route -->
+      <div style="display: flex; justify-content: center; align-items: center; min-height: 50vh;">
+        <div style="color: var(--text-muted);">Memuat Sahabat Dengar...</div>
+      </div>
+    </main>
+
+    <!-- Modal Root Container -->
+    <div id="modal-root"></div>
+
+    <!-- Toast Notifications Root -->
+    <div id="toast-root" style="position: fixed; bottom: 24px; right: 24px; z-index: 200; display: flex; flex-direction: column; gap: 8px;"></div>
+  </div>
+
+  <!-- App Entry Point -->
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>
