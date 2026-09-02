@@ -119,6 +119,25 @@ const sessionController = {
       next(err);
     }
   },
+
+  /**
+   * Get ringkasan analisis untuk satu sesi
+   * GET /api/session/:id/summary
+   */
+  async getSessionSummary(req, res, next) {
+    try {
+      const { id } = req.params;
+      const summary = await summaryModel.findBySessionId(id);
+
+      if (!summary) {
+        return responseHelper.error(res, 'Ringkasan sesi belum tersedia', 404);
+      }
+
+      return responseHelper.success(res, { summary }, 'Ringkasan sesi berhasil diambil');
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 module.exports = sessionController;
