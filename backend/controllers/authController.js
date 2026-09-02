@@ -72,6 +72,63 @@ const authController = {
       next(err);
     }
   },
+
+  /**
+   * Login User
+   * POST /api/auth/login
+   * Body: { email, password }
+   */
+  async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        return responseHelper.validationError(res, {
+          message: 'Email dan password wajib diisi',
+        });
+      }
+
+      // Cari user berdasarkan email
+      const user = await userModel.findByEmail(email);
+      if (!user) {
+        return responseHelper.error(res, 'Email atau password salah', 401);
+      }
+
+      // Verifikasi password
+      const isMatch = await bcrypt.compare(password, user.password_hash);
+      if (!isMatch) {
+        return responseHelper.error(res, 'Email atau password salah', 401);
+      }
+
+      // Buat JWT token
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          is_admin: user.is_admin,
+        },
+        env.JWT_SECRET,
+        { expiresIn: env.JWT_EXPIRES_IN }
+      );
+
+      return responseHelper.success(
+        res,
+        {
+          token,
+          user: {
+            id: user.id,
+            email: user.email,
+            is_admin: user.is_admin,
+            token_balance: user.token_balance,
+            created_at: user.created_at,
+          },
+        },
+        'Login berhasil'
+      );
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 module.exports = authController;
