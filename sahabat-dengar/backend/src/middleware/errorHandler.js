@@ -1,3 +1,4 @@
+// Global error handling middleware
 // src/middleware/errorHandler.js
 // Global error handler middleware
 

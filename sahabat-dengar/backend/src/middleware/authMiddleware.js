@@ -1,3 +1,4 @@
+// Auth middleware logic
 // src/middleware/authMiddleware.js
 // JWT verification middleware
 
