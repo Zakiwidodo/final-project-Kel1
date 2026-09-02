@@ -129,6 +129,24 @@ const authController = {
       next(err);
     }
   },
+
+  /**
+   * Get Current User Profile
+   * GET /api/auth/me
+   * Headers: Authorization: Bearer <token>
+   */
+  async me(req, res, next) {
+    try {
+      const user = await userModel.findById(req.user.id);
+      if (!user) {
+        return responseHelper.error(res, 'User tidak ditemukan', 404);
+      }
+
+      return responseHelper.success(res, { user }, 'Data user berhasil diambil');
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 module.exports = authController;
