@@ -9,6 +9,9 @@ import { renderLogin } from './pages/Login.js';
 import { renderRegister } from './pages/Register.js';
 import { renderHistory } from './pages/History.js';
 import { renderAdmin } from './pages/Admin.js';
+import { renderEdukasi } from './pages/Edukasi.js';
+import { renderTentang } from './pages/Tentang.js';
+import { renderBantuan } from './pages/Bantuan.js';
 import { renderTokenCounter } from './components/TokenCounter.js';
 
 // Route definition
@@ -21,6 +24,9 @@ const routes = {
   '#register': renderRegister,
   '#history': renderHistory,
   '#admin': renderAdmin,
+  '#edukasi': renderEdukasi,
+  '#tentang': renderTentang,
+  '#bantuan': renderBantuan,
 };
 
 const appContainer = document.getElementById('app');
@@ -50,6 +56,7 @@ function updateNavbar(currentHash) {
     navHtml += `
       <a href="#chat" class="nav-item ${currentHash === '#chat' ? 'active' : ''}">💬 Chat</a>
       <a href="#history" class="nav-item ${currentHash === '#history' ? 'active' : ''}">📖 Riwayat</a>
+      <a href="#edukasi" class="nav-item ${currentHash === '#edukasi' ? 'active' : ''}">📚 Edukasi</a>
       ${isAdmin ? `<a href="#admin" class="nav-item ${currentHash === '#admin' ? 'active' : ''}">👑 Admin</a>` : ''}
       <button class="btn btn-secondary btn-sm" id="btn-logout-nav" style="margin-left: 0.5rem;">
         Keluar
@@ -58,6 +65,7 @@ function updateNavbar(currentHash) {
   } else {
     navHtml += `
       <a href="#chat" class="nav-item ${currentHash === '#chat' ? 'active' : ''}">💬 Chat</a>
+      <a href="#edukasi" class="nav-item ${currentHash === '#edukasi' ? 'active' : ''}">📚 Edukasi</a>
       <a href="#login" class="nav-item ${currentHash === '#login' ? 'active' : ''}">Masuk</a>
       <a href="#register" class="btn btn-primary btn-sm" style="margin-left: 0.5rem;">Daftar</a>
     `;
