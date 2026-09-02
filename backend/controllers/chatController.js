@@ -50,7 +50,7 @@ const chatController = {
    */
   async sendMessage(req, res, next) {
     try {
-      const { content, session_id } = req.body;
+      const { content, session_id, chat_history } = req.body;
 
       if (!content || !content.trim()) {
         return responseHelper.validationError(res, {
@@ -108,6 +108,35 @@ const chatController = {
           'Pesan berhasil dikirim'
         );
       }
+
+      // ==========================================
+      // KASUS 2: USER ANONIM (Chat HANYA di memory/client)
+      // ==========================================
+      // Riwayat pesan diteruskan oleh client (sessionStorage)
+      const clientHistory = Array.isArray(chat_history) ? chat_history : [];
+      const conversation = [
+        ...clientHistory.map((msg) => ({
+          role: msg.role === 'assistant' ? 'assistant' : 'user',
+        content: msg.content,
+        })),
+        { role: 'user', content: trimmedContent },
+      ];
+
+      // Panggil LLM
+      const llmResponse = await llmService.sendMessage(
+        conversation,
+        analysisService.CHATBOT_SYSTEM_PROMPT
+      );
+
+      return responseHelper.success(
+        res,
+        {
+          reply: llmResponse.content,
+          session_id: session_id || req.anonToken,
+          token_remaining: req.tokenRemaining,
+        },
+        'Pesan berhasil dikirim'
+      );
     } catch (err) {
       next(err);
     }
