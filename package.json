@@ -1,0 +1,11 @@
+{
+  "name": "sahabat-dengar-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix sahabat-dengar/backend",
+    "start": "npm start --prefix sahabat-dengar/backend",
+    "db:init": "npm run db:init --prefix sahabat-dengar/backend",
+    "seed:admin": "npm run seed:admin --prefix sahabat-dengar/backend"
+  }
+}
