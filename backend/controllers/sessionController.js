@@ -71,6 +71,54 @@ const sessionController = {
       next(err);
     }
   },
+
+  /**
+   * Get semua riwayat sesi user (hanya login)
+   * GET /api/session/history
+   */
+  async getHistory(req, res, next) {
+    try {
+      const sessions = await sessionModel.findByUserId(req.user.id);
+      return responseHelper.success(res, { sessions }, 'Riwayat sesi berhasil diambil');
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
+   * Get 1 detail sesi dengan semua pesannya (hanya login)
+   * GET /api/session/:id
+   */
+  async getSession(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      const session = await sessionModel.findById(id);
+      if (!session) {
+        return responseHelper.error(res, 'Sesi tidak ditemukan', 404);
+      }
+
+      // Pastikan session milik user yang sedang login (kecuali admin)
+      if (session.user_id !== req.user.id && !req.user.is_admin) {
+        return responseHelper.error(res, 'Akses ditolak', 403);
+      }
+
+      const messages = await messageModel.findBySessionId(id);
+      const summary = await summaryModel.findBySessionId(id);
+
+      return responseHelper.success(
+        res,
+        {
+          session,
+          messages,
+          summary,
+        },
+        'Detail sesi berhasil diambil'
+      );
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 module.exports = sessionController;
