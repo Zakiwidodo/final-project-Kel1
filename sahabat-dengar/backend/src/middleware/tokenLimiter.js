@@ -1,3 +1,4 @@
+// Rate limiter middleware for API security
 // src/middleware/tokenLimiter.js
 // Middleware untuk cek & kurangi token (anonim dan login)
 
